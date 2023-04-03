@@ -1,48 +1,63 @@
-import { useState } from 'react'
-import { TodoItem } from './TodoItem'
+import './../styles/TodoList.scss';
 
-const TODO_LIST_DATA = [
-  {
-    id: 1,
-    title: 'Task 1',
-    completed: false,
-  },
-  {
-    id: 2,
-    title: 'Task 2',
-    completed: false,
-  },
-  {
-    id: 3,
-    title: 'Task 3',
-    completed: false,
-  },
-]
+import { useEffect, useState } from 'react';
 
-export function TodoList() {
+import { TodoItem } from './TodoItem';
+
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 8px;
+  text-align: center;
+`;
+
+const List = styled.ul`
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 1.2em;
+`;
+
+const Counter = styled.p`
+  text-align: right;
+  width: 100%;
+  font-size: 0.8em;
+`;
+
+export function TodoList({ TODO_LIST_DATA, updateList }) {
   const [items, setItems] = useState(TODO_LIST_DATA);
+
+  useEffect(() => {
+    setItems(TODO_LIST_DATA);
+  }, [TODO_LIST_DATA]);
 
   function handleTaskCheck(checked, id) {
     const updatedItems = items.map((task) => {
-        if (task.id === id) {
-            return { ...task, completed: checked }
-        }
+      if (task.id === id) {
+        return { ...task, completed: checked };
+      }
 
-        return task;
+      return task;
     });
 
+    localStorage.setItem('TODO_LIST_DATA', JSON.stringify(updatedItems));
     setItems(updatedItems);
   }
 
   return (
-    <>
-      <h1>Welcome to the TodoList</h1>
-      Items completados: {items.filter(t => t.completed).length}/{items.length}
-      <ul>
+    <Container key={TODO_LIST_DATA.length}>
+      <Counter>
+        Itens feitos: {items.filter((t) => t.completed).length}/{items.length}
+      </Counter>
+      <List>
         {items.map((task) => (
           <TodoItem key={task.id} task={task} onCheck={handleTaskCheck} />
         ))}
-      </ul>
-    </>
-  )
+      </List>
+    </Container>
+  );
 }
