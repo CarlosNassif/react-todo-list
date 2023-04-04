@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# TO-DOs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto feito para a disciplina de Técnicas Avançadas de Css durante a pós graduação em Desenvolvimento Web Frontend pela PUC Minas.
 
-## Available Scripts
+## Layout escolhido
 
-In the project directory, you can run:
+O projeto segue com uma única tela, onde o usuário pode registrar suas tarefas, marcá-las como feitas ou apagar as tarefas.
 
-### `npm start`
+## Arquitetura Estrutural
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+A tela desenhada foi destrinchada em três principais componentes:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- App -> Componente principal;
+- TodoList -> Lista de tarefas;
+- TodoItem -> Item de tarefa.
 
-### `npm test`
+### App
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Dentro desse componente, temos o título da página, uma área de inserção de novas tarefas, chamada do componente de listar as tarefas, e botão para limpar a lista.
 
-### `npm run build`
+### TodoList
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Nesse componente existe a chamada dos componentes de Item de tarefa (TodoItem) a partir da lista de tarefas. Também existe uma contagem dos itens já feitos, bem como a lógica para marcar e desmarcar os itens como concluídos.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### TodoItem
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Nesse componente temos apenas a exibição do item, no formato do campo de checkbox junto do texto que descreve a tarefa.
 
-### `npm run eject`
+## Arquitetura de Estilos
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Todos os componentes supracitados foram feitos utilizando o styled-components. A utilização desse biblioteca se deu devido ao conhecimento adquirido durante o curso da disciplina e também para fixá-lo.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Dentro do código, temos diversos estilos feitos a partir do styled-component. Esses estilos estão localizados dentro da pasta `/components/styles/`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Lista de todos os componentes:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Button
+- FlexContainer
+- FlexContainerCentered
+- FlexContainerStart
+- Grid
+- List
+- ListItem
+- RedButton
+- SmallParagraphRight
+- TextInput
+- Title
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+O intuito de utilizar os styled-components também se deu ao benefício de DRY (_Don't repeat yourself_), visto que podemos reaproveitar estilos similares, como no caso do RedButton e Button ou dos FlexContainer's.

@@ -1,42 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { TodoList } from './components/TodoList';
-
-import styled from 'styled-components';
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-`;
-
-const Button = styled.button`
-  display: inline-block;
-  flex: 1;
-  border: none;
-  background-color: #252526;
-  color: white;
-  height: 30px;
-  width: 50px;
-  border-radius: 2px;
-  cursor: pointer;
-`;
-
-const TextInput = styled.input`
-  border: 2px solid #000;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 11fr 1fr;
-  column-gap: 16px;
-`;
-
-const RedButton = styled(Button)`
-  background-color: tomato;
-  color: white;
-`;
+import { Button } from './components/styles/Button.styled';
+import { FlexContainerCentered } from './components/styles/FlexContainerCentered.styled';
+import { Grid } from './components/styles/Grid.styled';
+import { TextInput } from './components/styles/TextInput.styled';
+import { Title } from './components/styles/Title.styled';
+import { RedButton } from './components/styles/RedButton.styled';
 
 const TODO_LIST_DATA = [
   {
@@ -64,7 +34,6 @@ function App() {
 
   const [input, setInput] = useState('');
   const [todoList, setTodoList] = useState(list);
-  const [completedTaskCount, setCompletedTaskCount] = useState(0);
 
   function addTodo() {
     if (!!input) {
@@ -90,20 +59,25 @@ function App() {
     localStorage.setItem('TODO_LIST_DATA', JSON.stringify([]));
   }
 
+  function handleKeyUp(e) {
+    if (e.keyCode === 13) {
+      addTodo();
+    }
+  }
+
   return (
-    <Container>
-      <h1>TODO's</h1>
+    <FlexContainerCentered>
+      <Title>TO-DOs</Title>
       <Grid>
         <TextInput
           value={input}
           onInput={(element) => setInput(element.target.value)}
+          onSubmit={() => addTodo()}
+          onKeyUp={(e) => handleKeyUp(e)}
         ></TextInput>
-        <Button onClick={() => addTodo()}>+</Button>
+        <Button onClick={() => addTodo()}>ADD</Button>
       </Grid>
-      <TodoList
-        TODO_LIST_DATA={todoList}
-        updateList={(list) => setTodoList(list)}
-      />
+      <TodoList todoList={todoList} />
       <RedButton
         onClick={() => {
           clearList();
@@ -111,7 +85,7 @@ function App() {
       >
         Clear
       </RedButton>
-    </Container>
+    </FlexContainerCentered>
   );
 }
 

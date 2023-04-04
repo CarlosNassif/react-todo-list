@@ -1,39 +1,16 @@
-import './../styles/TodoList.scss';
-
 import { useEffect, useState } from 'react';
 
+import { FlexContainerStart } from './styles/FlexContainerStart.styled';
+import { List } from './styles/List.styled';
+import { SmallParagraphRight } from './styles/SmallParagraphRight.styled';
 import { TodoItem } from './TodoItem';
 
-import styled from 'styled-components';
-
-const Container = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  padding: 8px;
-  text-align: center;
-`;
-
-const List = styled.ul`
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  font-size: 1.2em;
-`;
-
-const Counter = styled.p`
-  text-align: right;
-  width: 100%;
-  font-size: 0.8em;
-`;
-
-export function TodoList({ TODO_LIST_DATA, updateList }) {
-  const [items, setItems] = useState(TODO_LIST_DATA);
+export function TodoList({ todoList }) {
+  const [items, setItems] = useState(todoList);
 
   useEffect(() => {
-    setItems(TODO_LIST_DATA);
-  }, [TODO_LIST_DATA]);
+    setItems(todoList);
+  }, [todoList]);
 
   function handleTaskCheck(checked, id) {
     const updatedItems = items.map((task) => {
@@ -49,15 +26,15 @@ export function TodoList({ TODO_LIST_DATA, updateList }) {
   }
 
   return (
-    <Container key={TODO_LIST_DATA.length}>
-      <Counter>
+    <FlexContainerStart key={todoList.length}>
+      <SmallParagraphRight>
         Itens feitos: {items.filter((t) => t.completed).length}/{items.length}
-      </Counter>
+      </SmallParagraphRight>
       <List>
         {items.map((task) => (
           <TodoItem key={task.id} task={task} onCheck={handleTaskCheck} />
         ))}
       </List>
-    </Container>
+    </FlexContainerStart>
   );
 }
